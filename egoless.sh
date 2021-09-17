@@ -22,6 +22,8 @@ NMP="$(which nmap)"
 USR=$(whoami)
 ## Find Groups Variable
 GRPS=$(groups)
+## Clear choice variables
+CHOICE=""
 ## Run Clear
 clear
 ## Valid Network Host Scan
@@ -57,7 +59,6 @@ function srvyscan(){
 		fi
 	else
 		echo "No go on the host scan.. got it"
-		msc
 	fi
 
 	msc
@@ -92,7 +93,7 @@ function toolcheck(){
 function msc(){
 	echo -e ${Red}'(1) Check for tools\t(2)Host Discovery\n(99) Exit'${WHITE}
 	read -p "${BROWN}EGO>${WHITE}" CHOICE
-       	case $CHOICE in
+	case $CHOICE in
 		1)
 			toolcheck
 			;;
@@ -108,6 +109,7 @@ function msc(){
 			msc
 			;;
 		banner) 
+			clear
 			banner
 			msc
 			;;
@@ -127,12 +129,9 @@ function msc(){
 
 ## Main Program
 function main(){
-        printf '\033[8;18;79t'
-	banner
+        banner
 	msc
-	return
 }
 
 main
-
 ## Blow Away Self
