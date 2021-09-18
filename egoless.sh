@@ -31,9 +31,12 @@ function srvyscan(){
 	echo "${Red}WARNING::Chosing the custom scan will take longer::WARNING${WHITE}"
 	if [[ -f $NMP ]]
 	then
-		read -p "${Green}nmap${WHITE} exists $NMP would you like to do host discovery$Blue(type nmap or custom for scan)$WHITE$Green[default:No Scan]$WHITE: " RNMP
+		echo -e "WELCOME TO HOST DISCOVERY$Blue(type nmap or custom for scan)$WHITE$Green[default:No Scan]$WHITE"
+		read -p "${BROWN}HostDiscovery>$WHITE " RNMP
+		
 	else
-		read -p "${Red}nmap${WHITE} doesn't exist, would you like to try host discovery$Blue(type custom for scan)$WHITE$Green[default:No Scan]$WHITE: " RNMP
+		read -e "WELCOME TO HOST DISCOVERY$Blue(type custom for scan)$WHITE$Green[default:No Scan]$WHITE"
+		read -p "${BROWN}HostDiscovery>$WHITE " RNMP
 	fi
 
 	if [[ -z "$RNMP" ]]
@@ -48,7 +51,7 @@ function srvyscan(){
 		$NMP -sP -T5 $NWORK
 	elif [ $RNMP == "custom" ]; then
 		echo "This will only scan /24 and smaller networks"
-		read -p "Please enter the first 3 octets$Red(fmt 192.168.1)$WHITE[default:192.168.1]: " OCT
+		read -p "Please enter the first 3 octets$Red(fmt 192.168.1)$Green[default:192.168.1]$WHITE: " OCT
 		if [[ -z "$OCT" ]]
 		then	
 			OCT="192.168.1"
@@ -84,8 +87,8 @@ function banner(){
 
 ## Tool Check
 function toolcheck(){
-	echo -e "Checking for tools..\n${Green}EXISTS ${Red}NOT FOUND${WHITE}:\n(1) $(if test -f "$(which msfconsole)"; then echo "$Green"; else echo "$Red"; fi)Metasploit$WHITE\t(2) $(if test -f "$(which nmap)"; then echo "$Green"; else echo "$Red"; fi)nmap$WHITE\n"		
-	 msc
+	echo -e "Checking for tools..\n${Green}EXISTS ${Red}NOT FOUND${WHITE}:\n(1) $(if test -f "$(which msfconsole)"; then echo "$Green"; else echo "$Red"; fi)Metasploit$WHITE\t(2) $(if test -f "$(which nmap)"; then echo "$Green"; else echo "$Red"; fi)nmap$WHITE\n(3) $(if test -f "$(which nc)"; then echo "$Green"; else echo "$Red";fi)NetCat$WHTIE\t"
+	msc
 }
 
 
@@ -120,9 +123,15 @@ function msc(){
 		exit)
 			exit 1
 			;;
-	*)
-	echo "No user input give or bad option"
-	esac
+		msfconsole)
+			msfconsole
+			msc
+			;;
+		*)
+			echo "No user input give or bad option"
+			msc
+			;;
+		esac
 }
 
 
