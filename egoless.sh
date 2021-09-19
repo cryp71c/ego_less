@@ -16,7 +16,7 @@ BROWN=$'\e[0;33m'
 ## File Variables
 PY2="$(which python2)"
 PY3="$(which python3)"
-SFS="$(find /home/$(whomi) -name virus.sh)"
+SFS="$(find /home/$(whoami) -name egoless.sh)"
 NMP="$(which nmap)"
 ## Find username Variable
 USR=$(whoami)
