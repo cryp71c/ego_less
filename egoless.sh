@@ -174,7 +174,7 @@ function msc(){
 			;;
 		msfconsole)
 			msfconsole
-			msc
+			main
 			;;
 		*)
 			echo "No user input give or bad option"
