@@ -20,8 +20,6 @@ Egoless is a post exploitation tool kit that searches for multipule tools on a s
 - IP info
 - MAC Lookup
 - whois query
-- 
--
 ```
 # In Script Commands/Options
 ```bash
