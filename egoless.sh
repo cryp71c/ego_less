@@ -91,10 +91,56 @@ function toolcheck(){
 	msc
 }
 
+## IP Check
+function ip_check(){
+	echo -e "${Red}(1) Get your public ip\t(2) $(if test -f "$(which whois)"; then echo $Green; else echo "$BROWN"; fi)Whois$Red\n(3) Trace Route\n$Green--------'r' to return--------$WHITE"
+	read -p "${BROWN}IP>" OPTION
+	case $OPTION in
+		1)
+			curl ifconfig.me/all
+			echo ""
+			ip_check
+			;;
+		2)
+			if [[ -f "$(which whois)" ]]
+			then
+				read -p "Enter an ip ${Green}[192.168.1.1]${BROWN}IP>${WHITE}" ip
+				whois $ip
+			else
+				echo "Whois doesn't exist on this system"
+			fi
+			ip_check
+			;;			
+		3)
+			read -p "Enter an ip ${Green}[192.168.0.1]${BROWN}IP${WHITE}>" ip
+			if [[ -f "$(which traceroute)" ]]
+			then
+				$(which traceroute) $ip
+			elif [[ -f "$(which tracepath)" ]]; then
+				$(which tracepath) $ip
+			else
+				echo "Trace Route and Trace Path do not exist on this system."
+			fi	
+			ip_check
+			;;
+		r)
+			clear
+			main
+			;;
+
+		*)
+			echo "No/invalid option, try agin"
+			ip_check
+			;;
+	esac
+
+}
+
+
 
 ## Main Switch Case
 function msc(){
-	echo -e ${Red}'(1) Check for tools\t(2)Host Discovery\n(99) Exit'${WHITE}
+	echo -e ${Red}'(1) Check for tools\t(2) Host Discovery\n(3) Ip Tools\t\t(99) Exit'${WHITE}
 	read -p "${BROWN}EGO>${WHITE}" CHOICE
 	case $CHOICE in
 		1)
@@ -102,6 +148,9 @@ function msc(){
 			;;
 		2)
 			srvyscan
+			;;
+		3)
+			ip_check
 			;;
 		99)
 			exit 1
