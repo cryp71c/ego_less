@@ -25,28 +25,27 @@ Egoless is a post exploitation tool kit that searches for multipule tools on a s
 ```bash
 ## Main Switch Case
 function msc(){
-	echo -e ${Red}'(1) Check for tools\t(2)Host Discovery\n(99) Exit'${WHITE}
+	echo -e ${Red}'(1) Check for tools\t(2) Host Discovery\n(3) Ip Tools\t\t(99) Exit'${WHITE}
 	read -p "${BROWN}EGO>${WHITE}" CHOICE
 	case $CHOICE in
 		1)
-			## Tool Search
 			toolcheck
 			;;
 		2)
-			## Host Scan
 			srvyscan
+			;;
+		3)
+			ip_check
 			;;
 		99)
 			exit 1
 			;;
 		clear)
-			## Clear Screen
 			clear
 			banner
 			msc
 			;;
-		banner)
-			## Print Banner
+		banner) 
 			clear
 			banner
 			msc
@@ -59,9 +58,8 @@ function msc(){
 			exit 1
 			;;
 		msfconsole)
-			## Metasploit
 			msfconsole
-			msc
+			main
 			;;
 		*)
 			echo "No user input give or bad option"
