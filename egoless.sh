@@ -93,7 +93,7 @@ function toolcheck(){
 
 ## IP Check
 function ip_check(){
-	echo -e "${Red}(1) Get your public ip\t(2) $(if test -f "$(which whois)"; then echo $Green; else echo "$BROWN"; fi)Whois$Red\n(3) Trace Route\n$Green--------'r' to return--------$WHITE"
+	echo -e "${Red}(1) Get your public ip\t(2) $(if test -f "$(which whois)"; then echo $Green; else echo "$BROWN"; fi)Whois$Red\n(3) Trace Route\t\t(4) $(if test -f "$(which ping)"; then echo $Green; else echo "$BROWN";fi)Ping\n$Green--------'r' to return--------$WHITE"
 	read -p "${BROWN}IP>" OPTION
 	case $OPTION in
 		1)
@@ -121,6 +121,12 @@ function ip_check(){
 			else
 				echo "Trace Route and Trace Path do not exist on this system."
 			fi	
+			ip_check
+			;;
+		
+		4)
+			read -p "Enter an ip and count ${Green}[192.168.0.1]${BROWN}IP>${WHITE}" ip
+			ping -c 3 $ip
 			ip_check
 			;;
 		r)
